@@ -2,7 +2,7 @@
 
 I'm happy to share with you this beautiful **custom_date_range_picker**
 
-<p align="center"><img src="screenshot.jpg" width="250" height="400"/></p>
+<p align="center"><img src="screenshot.jpg" width="320" height="600"/></p>
 
 To call the CustomDateRangePicker component, you need to pass the following props:
 
