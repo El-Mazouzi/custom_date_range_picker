@@ -32,8 +32,7 @@ class CustomDateRangePicker extends StatefulWidget {
   CustomDateRangePickerState createState() => CustomDateRangePickerState();
 }
 
-class CustomDateRangePickerState extends State<CustomDateRangePicker>
-    with TickerProviderStateMixin {
+class CustomDateRangePickerState extends State<CustomDateRangePicker> with TickerProviderStateMixin {
   AnimationController? animationController;
 
   DateTime? startDate;
@@ -42,8 +41,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
 
   @override
   void initState() {
-    animationController = AnimationController(
-        duration: const Duration(milliseconds: 400), vsync: this);
+    animationController = AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
     startDate = widget.initialStartDate;
     endDate = widget.initialEndDate;
     animationController?.forward();
@@ -79,10 +77,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                   color: Colors.white,
                   borderRadius: const BorderRadius.all(Radius.circular(24.0)),
                   boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        offset: const Offset(4, 4),
-                        blurRadius: 8.0),
+                    BoxShadow(color: Colors.grey.withOpacity(0.2), offset: const Offset(4, 4), blurRadius: 8.0),
                   ],
                 ),
                 child: InkWell(
@@ -113,10 +108,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                                   height: 4,
                                 ),
                                 Text(
-                                  startDate != null
-                                      ? DateFormat('EEE, dd MMM')
-                                          .format(startDate!)
-                                      : '--/-- ',
+                                  startDate != null ? DateFormat('EEE, dd MMM').format(startDate!) : '--/-- ',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -148,10 +140,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                                   height: 4,
                                 ),
                                 Text(
-                                  endDate != null
-                                      ? DateFormat('EEE, dd MMM')
-                                          .format(endDate!)
-                                      : '--/-- ',
+                                  endDate != null ? DateFormat('EEE, dd MMM').format(endDate!) : '--/-- ',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -171,8 +160,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                         maximumDate: widget.maximumDate,
                         initialEndDate: widget.initialEndDate,
                         initialStartDate: widget.initialStartDate,
-                        startEndDateChange:
-                            (DateTime startDateData, DateTime endDateData) {
+                        startEndDateChange: (DateTime startDateData, DateTime endDateData) {
                           setState(() {
                             startDate = startDateData;
                             endDate = endDateData;
@@ -180,16 +168,14 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                         },
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(
-                            left: 16, right: 16, bottom: 16, top: 8),
+                        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
                         child: Row(
                           children: [
                             Expanded(
                               child: Container(
                                 height: 48,
                                 decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(24.0)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(24.0)),
                                   boxShadow: <BoxShadow>[
                                     BoxShadow(
                                       color: Colors.grey.withOpacity(0.6),
@@ -202,19 +188,14 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                                   color: Colors.transparent,
                                   child: OutlinedButton(
                                     style: ButtonStyle(
-                                      side: MaterialStateProperty.all(
-                                          BorderSide(
-                                              color: Theme.of(context)
-                                                  .primaryColor)),
+                                      side:
+                                          MaterialStateProperty.all(BorderSide(color: Theme.of(context).primaryColor)),
                                       shape: MaterialStateProperty.all(
                                         const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(24.0)),
+                                          borderRadius: BorderRadius.all(Radius.circular(24.0)),
                                         ),
                                       ),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Theme.of(context).primaryColor),
+                                      backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
                                     ),
                                     onPressed: () {
                                       try {
@@ -242,8 +223,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                                 height: 48,
                                 decoration: BoxDecoration(
                                   color: Theme.of(context).primaryColor,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(24.0)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(24.0)),
                                   boxShadow: <BoxShadow>[
                                     BoxShadow(
                                       color: Colors.grey.withOpacity(0.6),
@@ -255,23 +235,19 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                                 child: Material(
                                   color: Colors.transparent,
                                   child: InkWell(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(24.0)),
+                                    borderRadius: const BorderRadius.all(Radius.circular(24.0)),
                                     highlightColor: Colors.transparent,
                                     onTap: () {
                                       try {
-                                        widget.onApplyClick(
-                                            startDate!, endDate!);
+                                        widget.onApplyClick(startDate!, endDate!);
                                         Navigator.pop(context);
                                       } catch (_) {}
                                     },
                                     child: const Center(
                                       child: Text(
                                         'Apply',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 18,
-                                            color: Colors.white),
+                                        style:
+                                            TextStyle(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white),
                                       ),
                                     ),
                                   ),
@@ -296,6 +272,8 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
 void showCustomDateRangePicker(
   BuildContext context, {
   required bool dismissible,
+  required DateTime minimumDate,
+  required DateTime maximumDate,
   DateTime? startDate,
   DateTime? endDate,
   required Function(DateTime startDate, DateTime endDate) onApplyClick,
@@ -309,8 +287,8 @@ void showCustomDateRangePicker(
     context: context,
     builder: (BuildContext context) => CustomDateRangePicker(
       barrierDismissible: true,
-      minimumDate: DateTime.now(),
-      maximumDate: DateTime.now().add(const Duration(days: 365)),
+      minimumDate: minimumDate,
+      maximumDate: maximumDate,
       initialStartDate: startDate,
       initialEndDate: endDate,
       onApplyClick: onApplyClick,
