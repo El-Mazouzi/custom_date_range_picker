@@ -13,3 +13,7 @@ Added minimum date & maximum date.
 ## 1.0.4
 
 Fixed pub.dev score
+
+## 1.0.5
+
+Added API documentation
