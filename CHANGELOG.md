@@ -9,3 +9,7 @@ Fixed pub.dev score
 ## 1.0.3
 
 Added minimum date & maximum date.
+
+## 1.0.4
+
+Fixed pub.dev score
