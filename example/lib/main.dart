@@ -85,10 +85,10 @@ class _MyHomePageState extends State<MyHomePage> {
             maximumDate: DateTime.now().add(const Duration(days: 30)),
             endDate: endDate,
             startDate: startDate,
-            onApplyClick: (s, e) {
+            onApplyClick: (start, end) {
               setState(() {
-                endDate = e;
-                startDate = s;
+                endDate = end;
+                startDate = start;
               });
             },
             onCancelClick: () {

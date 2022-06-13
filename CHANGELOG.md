@@ -17,3 +17,7 @@ Fixed pub.dev score
 ## 1.0.5
 
 Added API documentation
+
+## 1.0.6
+
+Updated the Readme.md file
