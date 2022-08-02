@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -20,14 +22,17 @@ class CustomCalendar extends StatefulWidget {
 
   final Function(DateTime, DateTime)? startEndDateChange;
 
-  const CustomCalendar({
-    Key? key,
-    this.initialStartDate,
-    this.initialEndDate,
-    this.startEndDateChange,
-    this.minimumDate,
-    this.maximumDate,
-  }) : super(key: key);
+  final bool multiLanguage;
+
+  const CustomCalendar(
+      {Key? key,
+      this.initialStartDate,
+      this.initialEndDate,
+      this.startEndDateChange,
+      this.minimumDate,
+      this.maximumDate,
+      this.multiLanguage = false})
+      : super(key: key);
 
   @override
   CustomCalendarState createState() => CustomCalendarState();
@@ -117,7 +122,12 @@ class CustomCalendarState extends State<CustomCalendar> {
               Expanded(
                 child: Center(
                   child: Text(
-                    DateFormat('MMMM, yyyy').format(currentMonthDate),
+                    DateFormat(
+                      'MMMM, yyyy',
+                      widget.multiLanguage
+                          ? Platform.localeName.substring(0, 2)
+                          : null,
+                    ).format(currentMonthDate),
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 20,

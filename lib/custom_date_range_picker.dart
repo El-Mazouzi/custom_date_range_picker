@@ -24,6 +24,7 @@ class CustomDateRangePicker extends StatefulWidget {
     required this.onCancelClick,
     this.textFirts,
     this.textSecond,
+    this.multiLanguage = false,
   }) : super(key: key);
 
   final DateTime minimumDate;
@@ -39,8 +40,12 @@ class CustomDateRangePicker extends StatefulWidget {
   final Function(DateTime, DateTime) onApplyClick;
 
   final Function() onCancelClick;
+
   final String? textFirts;
+
   final String? textSecond;
+
+  final bool multiLanguage;
 
   @override
   CustomDateRangePickerState createState() => CustomDateRangePickerState();
@@ -185,6 +190,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                         maximumDate: widget.maximumDate,
                         initialEndDate: widget.initialEndDate,
                         initialStartDate: widget.initialStartDate,
+                        multiLanguage: widget.multiLanguage,
                         startEndDateChange:
                             (DateTime startDateData, DateTime endDateData) {
                           setState(() {
