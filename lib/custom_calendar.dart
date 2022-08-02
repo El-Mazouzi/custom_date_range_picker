@@ -193,7 +193,12 @@ class CustomCalendarState extends State<CustomCalendar> {
         Expanded(
           child: Center(
             child: Text(
-              DateFormat('EEE').format(dateList[i]),
+              DateFormat(
+                'EEE',
+                widget.multiLanguage
+                    ? Platform.localeName.substring(0, 2)
+                    : null,
+              ).format(dateList[i]),
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
