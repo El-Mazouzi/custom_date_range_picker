@@ -340,6 +340,7 @@ void showCustomDateRangePicker(
   String? fontFamily,
   String? textFirst,
   String? textSecond,
+  bool multiLanguage = false,
 }) {
   FocusScope.of(context).requestFocus(FocusNode());
   showDialog<dynamic>(
@@ -350,6 +351,7 @@ void showCustomDateRangePicker(
       maximumDate: maximumDate,
       textFirts: textFirst,
       textSecond: textSecond,
+      multiLanguage: multiLanguage,
       initialStartDate: startDate,
       initialEndDate: endDate,
       onApplyClick: onApplyClick,
