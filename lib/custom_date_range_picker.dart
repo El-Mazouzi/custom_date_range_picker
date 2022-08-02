@@ -187,7 +187,6 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                         initialStartDate: widget.initialStartDate,
                         startEndDateChange:
                             (DateTime startDateData, DateTime endDateData) {
-                          print(startDateData);
                           setState(() {
                             startDate = startDateData;
                             endDate = endDateData;
