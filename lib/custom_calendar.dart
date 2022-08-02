@@ -275,8 +275,14 @@ class CustomCalendarState extends State<CustomCalendar> {
                                 widget.minimumDate!.month,
                                 widget.minimumDate!.day - 1);
                             if (date.isAfter(newminimumDate)) {
-                              onDateClick(date);
+                              if (newminimumDate.month == date.month) {
+                                onDateClick(date);
+                              } else if (currentMonthDate.month == date.month) {
+                                onDateClick(date);
+                              }
+                              // onDateClick(date);
                             }
+                            {}
                           } else if (widget.maximumDate != null) {
                             final DateTime newmaximumDate = DateTime(
                                 widget.maximumDate!.year,
@@ -285,8 +291,6 @@ class CustomCalendarState extends State<CustomCalendar> {
                             if (date.isBefore(newmaximumDate)) {
                               onDateClick(date);
                             }
-                          } else {
-                            onDateClick(date);
                           }
                         }
                       },
@@ -424,6 +428,12 @@ class CustomCalendarState extends State<CustomCalendar> {
   }
 
   void onDateClick(DateTime date) {
+    if (startDate != null) {
+      if (startDate?.month != date.month) {
+        startDate = null;
+        endDate == null;
+      }
+    }
     if (startDate == null) {
       startDate = date;
     } else if (startDate != date && endDate == null) {

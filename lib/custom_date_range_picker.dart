@@ -13,9 +13,22 @@ import 'package:intl/intl.dart';
 ///   required this.onCancelClick,
 /// }`
 class CustomDateRangePicker extends StatefulWidget {
+  const CustomDateRangePicker({
+    Key? key,
+    this.initialStartDate,
+    this.initialEndDate,
+    required this.onApplyClick,
+    this.barrierDismissible = true,
+    required this.minimumDate,
+    this.maximumDate,
+    required this.onCancelClick,
+    this.textFirts,
+    this.textSecond,
+  }) : super(key: key);
+
   final DateTime minimumDate;
 
-  final DateTime maximumDate;
+  final DateTime? maximumDate;
 
   final bool barrierDismissible;
 
@@ -26,17 +39,8 @@ class CustomDateRangePicker extends StatefulWidget {
   final Function(DateTime, DateTime) onApplyClick;
 
   final Function() onCancelClick;
-
-  const CustomDateRangePicker({
-    Key? key,
-    this.initialStartDate,
-    this.initialEndDate,
-    required this.onApplyClick,
-    this.barrierDismissible = true,
-    required this.minimumDate,
-    required this.maximumDate,
-    required this.onCancelClick,
-  }) : super(key: key);
+  final String? textFirts;
+  final String? textSecond;
 
   @override
   CustomDateRangePickerState createState() => CustomDateRangePickerState();
@@ -111,7 +115,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  'From',
+                                  widget.textFirts ?? 'From',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
@@ -147,7 +151,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  'To',
+                                  widget.textSecond ?? 'To',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16,
@@ -183,6 +187,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                         initialStartDate: widget.initialStartDate,
                         startEndDateChange:
                             (DateTime startDateData, DateTime endDateData) {
+                          print(startDateData);
                           setState(() {
                             startDate = startDateData;
                             endDate = endDateData;
@@ -320,7 +325,7 @@ void showCustomDateRangePicker(
   BuildContext context, {
   required bool dismissible,
   required DateTime minimumDate,
-  required DateTime maximumDate,
+  DateTime? maximumDate,
   DateTime? startDate,
   DateTime? endDate,
   required Function(DateTime startDate, DateTime endDate) onApplyClick,
@@ -328,6 +333,8 @@ void showCustomDateRangePicker(
   Color? backgroundColor,
   Color? primaryColor,
   String? fontFamily,
+  String? textFirst,
+  String? textSecond,
 }) {
   FocusScope.of(context).requestFocus(FocusNode());
   showDialog<dynamic>(
@@ -336,6 +343,8 @@ void showCustomDateRangePicker(
       barrierDismissible: true,
       minimumDate: minimumDate,
       maximumDate: maximumDate,
+      textFirts: textFirst,
+      textSecond: textSecond,
       initialStartDate: startDate,
       initialEndDate: endDate,
       onApplyClick: onApplyClick,
