@@ -270,7 +270,9 @@ class CustomCalendarState extends State<CustomCalendar> {
                           const BorderRadius.all(Radius.circular(32.0)),
                       onTap: () {
                         if (currentMonthDate.month == date.month) {
-                          if (widget.minimumDate != null &&
+                          if (widget.minimumDate == null) {
+                            onDateClick(date);
+                          } else if (widget.minimumDate != null &&
                               widget.maximumDate != null) {
                             final DateTime newminimumDate = DateTime(
                                 widget.minimumDate!.year,
@@ -297,7 +299,6 @@ class CustomCalendarState extends State<CustomCalendar> {
                               }
                               // onDateClick(date);
                             }
-                            {}
                           } else if (widget.maximumDate != null) {
                             final DateTime newmaximumDate = DateTime(
                                 widget.maximumDate!.year,

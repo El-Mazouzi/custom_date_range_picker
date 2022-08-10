@@ -21,7 +21,7 @@ class CustomDateRangePicker extends StatefulWidget {
       this.initialEndDate,
       required this.onApplyClick,
       this.barrierDismissible = true,
-      required this.minimumDate,
+      this.minimumDate,
       this.maximumDate,
       required this.onCancelClick,
       this.textFirts,
@@ -31,7 +31,7 @@ class CustomDateRangePicker extends StatefulWidget {
       this.textSecondsButton})
       : super(key: key);
 
-  final DateTime minimumDate;
+  final DateTime? minimumDate;
 
   final DateTime? maximumDate;
 
@@ -347,7 +347,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
 void showCustomDateRangePicker(
   BuildContext context, {
   required bool dismissible,
-  required DateTime minimumDate,
+  DateTime? minimumDate,
   DateTime? maximumDate,
   DateTime? startDate,
   DateTime? endDate,
