@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:custom_date_range_picker/custom_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -13,9 +15,25 @@ import 'package:intl/intl.dart';
 ///   required this.onCancelClick,
 /// }`
 class CustomDateRangePicker extends StatefulWidget {
-  final DateTime minimumDate;
+  const CustomDateRangePicker(
+      {Key? key,
+      this.initialStartDate,
+      this.initialEndDate,
+      required this.onApplyClick,
+      this.barrierDismissible = true,
+      this.minimumDate,
+      this.maximumDate,
+      required this.onCancelClick,
+      this.textFirts,
+      this.textSecond,
+      this.multiLanguage = false,
+      this.textFirtsButton,
+      this.textSecondsButton})
+      : super(key: key);
 
-  final DateTime maximumDate;
+  final DateTime? minimumDate;
+
+  final DateTime? maximumDate;
 
   final bool barrierDismissible;
 
@@ -27,16 +45,15 @@ class CustomDateRangePicker extends StatefulWidget {
 
   final Function() onCancelClick;
 
-  const CustomDateRangePicker({
-    Key? key,
-    this.initialStartDate,
-    this.initialEndDate,
-    required this.onApplyClick,
-    this.barrierDismissible = true,
-    required this.minimumDate,
-    required this.maximumDate,
-    required this.onCancelClick,
-  }) : super(key: key);
+  final String? textFirts;
+
+  final String? textSecond;
+
+  final String? textFirtsButton;
+
+  final String? textSecondsButton;
+
+  final bool multiLanguage;
 
   @override
   CustomDateRangePickerState createState() => CustomDateRangePickerState();
@@ -111,7 +128,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  'From',
+                                  widget.textFirts ?? 'From',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
@@ -124,8 +141,13 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                                 ),
                                 Text(
                                   startDate != null
-                                      ? DateFormat('EEE, dd MMM')
-                                          .format(startDate!)
+                                      ? DateFormat(
+                                          'EEE, dd MMM',
+                                          widget.multiLanguage
+                                              ? Platform.localeName
+                                                  .substring(0, 2)
+                                              : null,
+                                        ).format(startDate!)
                                       : '--/-- ',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -147,7 +169,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  'To',
+                                  widget.textSecond ?? 'To',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16,
@@ -159,8 +181,13 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                                 ),
                                 Text(
                                   endDate != null
-                                      ? DateFormat('EEE, dd MMM')
-                                          .format(endDate!)
+                                      ? DateFormat(
+                                          'EEE, dd MMM',
+                                          widget.multiLanguage
+                                              ? Platform.localeName
+                                                  .substring(0, 2)
+                                              : null,
+                                        ).format(endDate!)
                                       : '--/-- ',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -181,6 +208,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                         maximumDate: widget.maximumDate,
                         initialEndDate: widget.initialEndDate,
                         initialStartDate: widget.initialStartDate,
+                        multiLanguage: widget.multiLanguage,
                         startEndDateChange:
                             (DateTime startDateData, DateTime endDateData) {
                           setState(() {
@@ -232,10 +260,10 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                                         Navigator.pop(context);
                                       } catch (_) {}
                                     },
-                                    child: const Center(
+                                    child: Center(
                                       child: Text(
-                                        'Cancel',
-                                        style: TextStyle(
+                                        widget.textFirtsButton ?? 'Cancel',
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.w500,
                                           fontSize: 18,
                                           color: Colors.white,
@@ -275,10 +303,10 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                                         Navigator.pop(context);
                                       } catch (_) {}
                                     },
-                                    child: const Center(
+                                    child: Center(
                                       child: Text(
-                                        'Apply',
-                                        style: TextStyle(
+                                        widget.textSecondsButton ?? 'Apply',
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 18,
                                             color: Colors.white),
@@ -319,8 +347,8 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
 void showCustomDateRangePicker(
   BuildContext context, {
   required bool dismissible,
-  required DateTime minimumDate,
-  required DateTime maximumDate,
+  DateTime? minimumDate,
+  DateTime? maximumDate,
   DateTime? startDate,
   DateTime? endDate,
   required Function(DateTime startDate, DateTime endDate) onApplyClick,
@@ -328,6 +356,11 @@ void showCustomDateRangePicker(
   Color? backgroundColor,
   Color? primaryColor,
   String? fontFamily,
+  String? textFirst,
+  String? textSecond,
+  String? textFirtsButton,
+  String? textSecondsButton,
+  bool multiLanguage = false,
 }) {
   FocusScope.of(context).requestFocus(FocusNode());
   showDialog<dynamic>(
@@ -336,6 +369,11 @@ void showCustomDateRangePicker(
       barrierDismissible: true,
       minimumDate: minimumDate,
       maximumDate: maximumDate,
+      textFirts: textFirst,
+      textSecond: textSecond,
+      textFirtsButton: textFirtsButton,
+      textSecondsButton: textSecondsButton,
+      multiLanguage: multiLanguage,
       initialStartDate: startDate,
       initialEndDate: endDate,
       onApplyClick: onApplyClick,

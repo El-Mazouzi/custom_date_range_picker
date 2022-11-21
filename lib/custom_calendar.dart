@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -20,14 +22,17 @@ class CustomCalendar extends StatefulWidget {
 
   final Function(DateTime, DateTime)? startEndDateChange;
 
-  const CustomCalendar({
-    Key? key,
-    this.initialStartDate,
-    this.initialEndDate,
-    this.startEndDateChange,
-    this.minimumDate,
-    this.maximumDate,
-  }) : super(key: key);
+  final bool multiLanguage;
+
+  const CustomCalendar(
+      {Key? key,
+      this.initialStartDate,
+      this.initialEndDate,
+      this.startEndDateChange,
+      this.minimumDate,
+      this.maximumDate,
+      this.multiLanguage = false})
+      : super(key: key);
 
   @override
   CustomCalendarState createState() => CustomCalendarState();
@@ -117,7 +122,12 @@ class CustomCalendarState extends State<CustomCalendar> {
               Expanded(
                 child: Center(
                   child: Text(
-                    DateFormat('MMMM, yyyy').format(currentMonthDate),
+                    DateFormat(
+                      'MMMM, yyyy',
+                      widget.multiLanguage
+                          ? Platform.localeName.substring(0, 2)
+                          : null,
+                    ).format(currentMonthDate),
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 20,
@@ -183,7 +193,12 @@ class CustomCalendarState extends State<CustomCalendar> {
         Expanded(
           child: Center(
             child: Text(
-              DateFormat('EEE').format(dateList[i]),
+              DateFormat(
+                'EEE',
+                widget.multiLanguage
+                    ? Platform.localeName.substring(0, 2)
+                    : null,
+              ).format(dateList[i]),
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -255,7 +270,9 @@ class CustomCalendarState extends State<CustomCalendar> {
                           const BorderRadius.all(Radius.circular(32.0)),
                       onTap: () {
                         if (currentMonthDate.month == date.month) {
-                          if (widget.minimumDate != null &&
+                          if (widget.minimumDate == null) {
+                            onDateClick(date);
+                          } else if (widget.minimumDate != null &&
                               widget.maximumDate != null) {
                             final DateTime newminimumDate = DateTime(
                                 widget.minimumDate!.year,
@@ -275,7 +292,12 @@ class CustomCalendarState extends State<CustomCalendar> {
                                 widget.minimumDate!.month,
                                 widget.minimumDate!.day - 1);
                             if (date.isAfter(newminimumDate)) {
-                              onDateClick(date);
+                              if (newminimumDate.month == date.month) {
+                                onDateClick(date);
+                              } else if (currentMonthDate.month == date.month) {
+                                onDateClick(date);
+                              }
+                              // onDateClick(date);
                             }
                           } else if (widget.maximumDate != null) {
                             final DateTime newmaximumDate = DateTime(
@@ -285,8 +307,6 @@ class CustomCalendarState extends State<CustomCalendar> {
                             if (date.isBefore(newmaximumDate)) {
                               onDateClick(date);
                             }
-                          } else {
-                            onDateClick(date);
                           }
                         }
                       },
@@ -424,6 +444,12 @@ class CustomCalendarState extends State<CustomCalendar> {
   }
 
   void onDateClick(DateTime date) {
+    if (startDate != null) {
+      if (startDate?.month != date.month) {
+        startDate = null;
+        endDate == null;
+      }
+    }
     if (startDate == null) {
       startDate = date;
     } else if (startDate != date && endDate == null) {

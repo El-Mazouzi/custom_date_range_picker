@@ -82,7 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             dismissible: true,
             minimumDate: DateTime.now(),
-            maximumDate: DateTime.now().add(const Duration(days: 30)),
             endDate: endDate,
             startDate: startDate,
             onApplyClick: (start, end) {
