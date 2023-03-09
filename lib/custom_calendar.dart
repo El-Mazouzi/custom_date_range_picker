@@ -79,8 +79,12 @@ class CustomCalendarState extends State<CustomCalendar> {
     return Column(
       children: <Widget>[
         Padding(
-          padding:
-              const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 4),
+          padding: const EdgeInsets.only(
+            left: 8.0,
+            right: 8.0,
+            top: 4,
+            bottom: 4,
+          ),
           child: Row(
             children: <Widget>[
               Padding(
@@ -121,7 +125,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 20,
-                      color: Theme.of(context).textTheme.headline1!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                     ),
                   ),
                 ),

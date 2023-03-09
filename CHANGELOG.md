@@ -21,3 +21,7 @@ Added API documentation
 ## 1.0.6
 
 Updated the Readme.md file
+
+## 1.0.7
+
+Updated the flutter sdk to 3.7.6
