@@ -35,6 +35,7 @@ To call the CustomDateRangePicker component, you need to pass the following prop
         child: const Icon(Icons.calendar_today_outlined, color: Colors.white),
       ),
 ```
+<<<<<<< HEAD
 
 Many Thanks to the creator of this Repo https://github.com/mitesh77/Best-Flutter-UI-Templates
 
@@ -43,3 +44,5 @@ Many Thanks to the creator of this Repo https://github.com/mitesh77/Best-Flutter
 For help getting started with Flutter, view our online [documentation](https://flutter.io/).
 
 For help on editing package code, view the [documentation](https://flutter.io/developing-packages/).
+=======
+>>>>>>> 1898a6d299ddf5cee802abd9c6327d26643e6995
