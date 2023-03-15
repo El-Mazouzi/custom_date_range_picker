@@ -85,6 +85,8 @@ class _MyHomePageState extends State<MyHomePage> {
             maximumDate: DateTime.now().add(const Duration(days: 30)),
             endDate: endDate,
             startDate: startDate,
+            backgroundColor: Colors.white,
+            primaryColor: Colors.green,
             onApplyClick: (start, end) {
               setState(() {
                 endDate = end;

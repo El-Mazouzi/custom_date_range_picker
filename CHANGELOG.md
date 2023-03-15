@@ -25,3 +25,15 @@ Updated the Readme.md file
 ## 1.0.7
 
 Updated the flutter sdk to 3.7.6
+
+## 1.0.8
+
+Added primaryColor and backgroundColor
+
+## 1.0.9
+
+updated package score
+
+## 1.0.10
+
+Updated the Readme.md file, and added more documentation

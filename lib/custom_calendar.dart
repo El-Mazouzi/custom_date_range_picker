@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+/// user for DateTime formatting
 import 'package:intl/intl.dart';
 
 /// `const CustomCalendar({
@@ -8,16 +10,25 @@ import 'package:intl/intl.dart';
 ///   this.startEndDateChange,
 ///   this.minimumDate,
 ///   this.maximumDate,
+///   required this.primaryColor,
 /// })`
 class CustomCalendar extends StatefulWidget {
+  /// The minimum date that can be selected on the calendar
   final DateTime? minimumDate;
 
+  /// The maximum date that can be selected on the calendar
   final DateTime? maximumDate;
 
+  /// The initial start date to be shown on the calendar
   final DateTime? initialStartDate;
 
+  /// The initial end date to be shown on the calendar
   final DateTime? initialEndDate;
 
+  /// The primary color to be used in the calendar's color scheme
+  final Color primaryColor;
+
+  /// A function to be called when the selected date range changes
   final Function(DateTime, DateTime)? startEndDateChange;
 
   const CustomCalendar({
@@ -27,6 +38,7 @@ class CustomCalendar extends StatefulWidget {
     this.startEndDateChange,
     this.minimumDate,
     this.maximumDate,
+    required this.primaryColor,
   }) : super(key: key);
 
   @override
@@ -95,7 +107,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(24.0)),
                     border: Border.all(
-                      color: Theme.of(context).dividerColor,
+                      color: Colors.grey.shade300,
                     ),
                   ),
                   child: Material(
@@ -125,7 +137,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 20,
-                      color: Theme.of(context).textTheme.displayLarge!.color,
+                      color: Colors.grey.shade700,
                     ),
                   ),
                 ),
@@ -138,7 +150,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(24.0)),
                     border: Border.all(
-                      color: Theme.of(context).dividerColor,
+                      color: Colors.grey.shade300,
                     ),
                   ),
                   child: Material(
@@ -191,7 +203,7 @@ class CustomCalendarState extends State<CustomCalendar> {
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  color: Theme.of(context).primaryColor),
+                  color: widget.primaryColor),
             ),
           ),
         ),
@@ -228,9 +240,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                             color: startDate != null && endDate != null
                                 ? getIsItStartAndEndDate(date) ||
                                         getIsInRange(date)
-                                    ? Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.4)
+                                    ? widget.primaryColor.withOpacity(0.4)
                                     : Colors.transparent
                                 : Colors.transparent,
                             borderRadius: BorderRadius.only(
@@ -299,7 +309,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                         child: Container(
                           decoration: BoxDecoration(
                             color: getIsItStartAndEndDate(date)
-                                ? Theme.of(context).primaryColor
+                                ? widget.primaryColor
                                 : Colors.transparent,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(32.0)),
@@ -325,7 +335,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                                   color: getIsItStartAndEndDate(date)
                                       ? Colors.white
                                       : currentMonthDate.month == date.month
-                                          ? Colors.black
+                                          ? widget.primaryColor
                                           : Colors.grey.withOpacity(0.6),
                                   fontSize:
                                       MediaQuery.of(context).size.width > 360
@@ -353,7 +363,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                                   DateTime.now().year == date.year
                               ? getIsInRange(date)
                                   ? Colors.white
-                                  : Theme.of(context).primaryColor
+                                  : widget.primaryColor
                               : Colors.transparent,
                           shape: BoxShape.circle),
                     ),

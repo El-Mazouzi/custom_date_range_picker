@@ -1,36 +1,56 @@
-import 'package:custom_date_range_picker/custom_calendar.dart';
+import 'custom_calendar.dart';
 import 'package:flutter/material.dart';
+
+/// user for DateTime formatting
 import 'package:intl/intl.dart';
 
-/// `CustomDateRangePicker({
+/// A custom date range picker widget that allows users to select a date range.
+/// `const CustomDateRangePicker({
 ///   Key? key,
 ///   this.initialStartDate,
 ///   this.initialEndDate,
+///   required this.primaryColor,
+///   required this.backgroundColor,
 ///   required this.onApplyClick,
 ///   this.barrierDismissible = true,
 ///   required this.minimumDate,
 ///   required this.maximumDate,
 ///   required this.onCancelClick,
-/// }`
+/// })`
 class CustomDateRangePicker extends StatefulWidget {
+  /// The minimum date that can be selected in the calendar.
   final DateTime minimumDate;
 
+  /// The maximum date that can be selected in the calendar.
   final DateTime maximumDate;
 
+  /// Whether the widget can be dismissed by tapping outside of it.
   final bool barrierDismissible;
 
+  /// The initial start date for the date range picker. If not provided, the calendar will default to the minimum date.
   final DateTime? initialStartDate;
 
+  /// The initial end date for the date range picker. If not provided, the calendar will default to the maximum date.
   final DateTime? initialEndDate;
 
+  /// The primary color used for the date range picker.
+  final Color primaryColor;
+
+  /// The background color used for the date range picker.
+  final Color backgroundColor;
+
+  /// A callback function that is called when the user applies the selected date range.
   final Function(DateTime, DateTime) onApplyClick;
 
+  /// A callback function that is called when the user cancels the selection of the date range.
   final Function() onCancelClick;
 
   const CustomDateRangePicker({
     Key? key,
     this.initialStartDate,
     this.initialEndDate,
+    required this.primaryColor,
+    required this.backgroundColor,
     required this.onApplyClick,
     this.barrierDismissible = true,
     required this.minimumDate,
@@ -86,7 +106,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
               padding: const EdgeInsets.all(24.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: widget.backgroundColor,
                   borderRadius: const BorderRadius.all(Radius.circular(24.0)),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
@@ -181,6 +201,7 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                         maximumDate: widget.maximumDate,
                         initialEndDate: widget.initialEndDate,
                         initialStartDate: widget.initialStartDate,
+                        primaryColor: widget.primaryColor,
                         startEndDateChange:
                             (DateTime startDateData, DateTime endDateData) {
                           setState(() {
@@ -197,49 +218,36 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                             Expanded(
                               child: Container(
                                 height: 48,
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(24.0)),
-                                  boxShadow: <BoxShadow>[
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.6),
-                                      blurRadius: 8,
-                                      offset: const Offset(4, 4),
-                                    ),
-                                  ],
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(24.0)),
                                 ),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: OutlinedButton(
-                                    style: ButtonStyle(
-                                      side: MaterialStateProperty.all(
-                                          BorderSide(
-                                              color: Theme.of(context)
-                                                  .primaryColor)),
-                                      shape: MaterialStateProperty.all(
-                                        const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(24.0)),
-                                        ),
+                                child: OutlinedButton(
+                                  style: ButtonStyle(
+                                    side: MaterialStateProperty.all(
+                                        BorderSide(color: widget.primaryColor)),
+                                    shape: MaterialStateProperty.all(
+                                      const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(24.0)),
                                       ),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Theme.of(context).primaryColor),
                                     ),
-                                    onPressed: () {
-                                      try {
-                                        widget.onCancelClick();
-                                        Navigator.pop(context);
-                                      } catch (_) {}
-                                    },
-                                    child: const Center(
-                                      child: Text(
-                                        'Cancel',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                        ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        widget.primaryColor),
+                                  ),
+                                  onPressed: () {
+                                    try {
+                                      widget.onCancelClick();
+                                      Navigator.pop(context);
+                                    } catch (_) {}
+                                  },
+                                  child: const Center(
+                                    child: Text(
+                                      'Cancel',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
@@ -250,38 +258,36 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                             Expanded(
                               child: Container(
                                 height: 48,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(24.0)),
-                                  boxShadow: <BoxShadow>[
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.6),
-                                      blurRadius: 8,
-                                      offset: const Offset(4, 4),
-                                    ),
-                                  ],
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(24.0)),
                                 ),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(24.0)),
-                                    highlightColor: Colors.transparent,
-                                    onTap: () {
-                                      try {
-                                        widget.onApplyClick(
-                                            startDate!, endDate!);
-                                        Navigator.pop(context);
-                                      } catch (_) {}
-                                    },
-                                    child: const Center(
-                                      child: Text(
-                                        'Apply',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 18,
-                                            color: Colors.white),
+                                child: OutlinedButton(
+                                  style: ButtonStyle(
+                                    side: MaterialStateProperty.all(
+                                        BorderSide(color: widget.primaryColor)),
+                                    shape: MaterialStateProperty.all(
+                                      const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(24.0)),
+                                      ),
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        widget.primaryColor),
+                                  ),
+                                  onPressed: () {
+                                    try {
+                                      widget.onApplyClick(startDate!, endDate!);
+                                      Navigator.pop(context);
+                                    } catch (_) {}
+                                  },
+                                  child: const Center(
+                                    child: Text(
+                                      'Apply',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
@@ -303,19 +309,19 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
   }
 }
 
-/// `showCustomDateRangePicker(
-///   BuildContext context, {
-///   required bool dismissible,
-///   required DateTime minimumDate,
-///   required DateTime maximumDate,
-///   DateTime? startDate,
-///   DateTime? endDate,
-///   required Function(DateTime startDate, DateTime endDate) onApplyClick,
-///   required Function() onCancelClick,
-///   Color? backgroundColor,
-///   Color? primaryColor,
-///   String? fontFamily,
-/// })`
+/// Displays a custom date range picker dialog box.
+/// `context` The context in which to show the dialog.
+/// `dismissible` A boolean value indicating whether the dialog can be dismissed by tapping outside of it.
+/// `minimumDate` A DateTime object representing the minimum allowable date that can be selected in the date range picker.
+/// `maximumDate` A DateTime object representing the maximum allowable date that can be selected in the date range picker.
+/// `startDate` A nullable DateTime object representing the initial start date of the date range selection.
+/// `endDate` A nullable DateTime object representing the initial end date of the date range selection.
+/// `onApplyClick` A function that takes two DateTime parameters representing the selected start and end dates, respectively, and is called when the user taps the "Apply" button.
+/// `onCancelClick` A function that is called when the user taps the "Cancel" button.
+/// `backgroundColor` The background color of the dialog.
+/// `primaryColor` The primary color of the dialog.
+/// `fontFamily` The font family to use for the text in the dialog.
+
 void showCustomDateRangePicker(
   BuildContext context, {
   required bool dismissible,
@@ -325,15 +331,20 @@ void showCustomDateRangePicker(
   DateTime? endDate,
   required Function(DateTime startDate, DateTime endDate) onApplyClick,
   required Function() onCancelClick,
-  Color? backgroundColor,
-  Color? primaryColor,
+  required Color backgroundColor,
+  required Color primaryColor,
   String? fontFamily,
 }) {
+  /// Request focus to take it away from any input field that might be in focus
   FocusScope.of(context).requestFocus(FocusNode());
+
+  /// Show the CustomDateRangePicker dialog box
   showDialog<dynamic>(
     context: context,
     builder: (BuildContext context) => CustomDateRangePicker(
       barrierDismissible: true,
+      backgroundColor: backgroundColor,
+      primaryColor: primaryColor,
       minimumDate: minimumDate,
       maximumDate: maximumDate,
       initialStartDate: startDate,
