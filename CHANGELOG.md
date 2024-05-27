@@ -37,3 +37,7 @@ updated package score
 ## 1.0.10
 
 Updated the Readme.md file, and added more documentation
+
+## 1.1.0
+
+Updated the intl version

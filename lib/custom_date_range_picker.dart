@@ -224,15 +224,15 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                                 ),
                                 child: OutlinedButton(
                                   style: ButtonStyle(
-                                    side: MaterialStateProperty.all(
+                                    side: WidgetStateProperty.all(
                                         BorderSide(color: widget.primaryColor)),
-                                    shape: MaterialStateProperty.all(
+                                    shape: WidgetStateProperty.all(
                                       const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(24.0)),
                                       ),
                                     ),
-                                    backgroundColor: MaterialStateProperty.all(
+                                    backgroundColor: WidgetStateProperty.all(
                                         widget.primaryColor),
                                   ),
                                   onPressed: () {
@@ -264,15 +264,15 @@ class CustomDateRangePickerState extends State<CustomDateRangePicker>
                                 ),
                                 child: OutlinedButton(
                                   style: ButtonStyle(
-                                    side: MaterialStateProperty.all(
+                                    side: WidgetStateProperty.all(
                                         BorderSide(color: widget.primaryColor)),
-                                    shape: MaterialStateProperty.all(
+                                    shape: WidgetStateProperty.all(
                                       const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(24.0)),
                                       ),
                                     ),
-                                    backgroundColor: MaterialStateProperty.all(
+                                    backgroundColor: WidgetStateProperty.all(
                                         widget.primaryColor),
                                   ),
                                   onPressed: () {
