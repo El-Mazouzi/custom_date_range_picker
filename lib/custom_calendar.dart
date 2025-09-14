@@ -212,6 +212,13 @@ class CustomCalendarState extends State<CustomCalendar> {
       final List<Widget> listUI = <Widget>[];
       for (int i = 0; i < 7; i++) {
         final DateTime date = dateList[count];
+        final isDisabled = widget.minimumDate != null && widget.maximumDate != null
+            ? date.isBefore(widget.minimumDate!) || date.isAfter(widget.maximumDate!)
+            : widget.minimumDate != null
+                ? date.isBefore(widget.minimumDate!)
+                : widget.maximumDate != null
+                    ? date.isAfter(widget.maximumDate!)
+                    : false;
         listUI.add(
           Expanded(
             child: AspectRatio(
@@ -254,7 +261,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                     color: Colors.transparent,
                     child: InkWell(
                       borderRadius: const BorderRadius.all(Radius.circular(32.0)),
-                      onTap: () {
+                      onTap: isDisabled ? null : () {
                         if (currentMonthDate.month == date.month) {
                           if (widget.minimumDate != null && widget.maximumDate != null) {
                             final DateTime newminimumDate = DateTime(
@@ -304,7 +311,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                             child: Text(
                               '${date.day}',
                               style: TextStyle(
-                                  color: getIsItStartAndEndDate(date)
+                                  color: isDisabled ? Colors.grey.withValues(alpha: 0.6) : getIsItStartAndEndDate(date)
                                       ? Colors.white
                                       : currentMonthDate.month == date.month
                                           ? widget.primaryColor
