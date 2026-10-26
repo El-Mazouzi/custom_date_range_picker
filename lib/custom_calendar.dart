@@ -31,6 +31,9 @@ class CustomCalendar extends StatefulWidget {
   /// A function to be called when the selected date range changes
   final Function(DateTime, DateTime)? startEndDateChange;
 
+  /// Locale for the calendar
+  final Locale? locale;
+
   const CustomCalendar({
     super.key,
     this.initialStartDate,
@@ -39,6 +42,7 @@ class CustomCalendar extends StatefulWidget {
     this.minimumDate,
     this.maximumDate,
     required this.primaryColor,
+    this.locale,
   });
 
   @override
@@ -88,6 +92,8 @@ class CustomCalendarState extends State<CustomCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = widget.locale ?? Localizations.localeOf(context);
+
     return Column(
       children: <Widget>[
         Padding(
@@ -131,7 +137,7 @@ class CustomCalendarState extends State<CustomCalendar> {
               Expanded(
                 child: Center(
                   child: Text(
-                    DateFormat('MMMM, yyyy').format(currentMonthDate),
+                    DateFormat('MMMM, yyyy', locale.toString()).format(currentMonthDate),
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 20,
@@ -175,7 +181,7 @@ class CustomCalendarState extends State<CustomCalendar> {
         Padding(
           padding: const EdgeInsets.only(right: 8, left: 8, bottom: 8),
           child: Row(
-            children: getDaysNameUI(),
+            children: getDaysNameUI(locale),
           ),
         ),
         Padding(
@@ -188,14 +194,14 @@ class CustomCalendarState extends State<CustomCalendar> {
     );
   }
 
-  List<Widget> getDaysNameUI() {
+  List<Widget> getDaysNameUI(Locale locale) {
     final List<Widget> listUI = <Widget>[];
     for (int i = 0; i < 7; i++) {
       listUI.add(
         Expanded(
           child: Center(
             child: Text(
-              DateFormat('EEE').format(dateList[i]),
+              DateFormat('EEE', locale.toString()).format(dateList[i]),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: widget.primaryColor),
             ),
           ),

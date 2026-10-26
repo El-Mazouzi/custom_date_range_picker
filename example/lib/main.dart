@@ -1,8 +1,10 @@
 import 'package:custom_date_range_picker/custom_date_range_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 void main() {
+  initializeDateFormatting();
   runApp(const MyApp());
 }
 
@@ -95,6 +97,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 startDate = null;
               });
             },
+            locale: const Locale('fr', 'FR'),
+            cancelButtonText: 'Annuler',
+            applyButtonText: 'Appliquer',
+            fromText: 'Du',
+            toText: 'Au',
           );
         },
         tooltip: 'choose date Range',
